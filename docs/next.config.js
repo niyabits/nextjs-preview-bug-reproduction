@@ -18,6 +18,10 @@ module.exports = withSvgr({
 
     return config;
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   async redirects() {
     return [
       {
