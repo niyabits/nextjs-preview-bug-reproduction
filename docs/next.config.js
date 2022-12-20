@@ -1,7 +1,27 @@
+const withSvgr = require("next-svgr");
+
 /** @type {import("next").NextConfig} */
-module.exports = {
+module.exports = withSvgr({
   reactStrictMode: true,
   basePath: "/docs",
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.mdx?/,
+      use: [
+        options.defaultLoaders.babel,
+        {
+          loader: "raw-loader",
+          options: {},
+        },
+      ],
+    });
+
+    return config;
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   async redirects() {
     return [
       {
@@ -12,4 +32,4 @@ module.exports = {
       },
     ];
   },
-};
+});
